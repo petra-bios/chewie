@@ -1,7 +1,7 @@
 import 'package:chewie/src/chewie_progress_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:video_player/video_player.dart';
+import 'package:ext_video_player/ext_video_player.dart';
 
 class CupertinoVideoProgressBar extends StatefulWidget {
   CupertinoVideoProgressBar(
@@ -127,8 +127,10 @@ class _ProgressBarPainter extends CustomPainter {
     if (!value.initialized) {
       return;
     }
-    final double playedPartPercent = value.position.inMilliseconds / value.duration.inMilliseconds;
-    final double playedPart = playedPartPercent > 1 ? size.width : playedPartPercent * size.width;
+    final double playedPartPercent =
+        value.position.inMilliseconds / value.duration.inMilliseconds;
+    final double playedPart =
+        playedPartPercent > 1 ? size.width : playedPartPercent * size.width;
     for (final DurationRange range in value.buffered) {
       final double start = range.startFraction(value.duration) * size.width;
       final double end = range.endFraction(value.duration) * size.width;
@@ -155,7 +157,9 @@ class _ProgressBarPainter extends CustomPainter {
     );
 
     final shadowPath = Path()
-      ..addOval(Rect.fromCircle(center: Offset(playedPart, baseOffset + barHeight / 2), radius: handleHeight));
+      ..addOval(Rect.fromCircle(
+          center: Offset(playedPart, baseOffset + barHeight / 2),
+          radius: handleHeight));
 
     canvas.drawShadow(shadowPath, Colors.black, 0.2, false);
     canvas.drawCircle(
